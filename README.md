@@ -6,7 +6,6 @@
   </a>
 </p>
 
-<h1 align="center">Tempest</h1>
 <div align="center">
   Bringing <a href="https://tempestphp.com/view">tempest/view</a> to Laravel.
   <br />
@@ -29,6 +28,8 @@ composer require tempest/view-for-laravel
 From any controller, simply return an instance of `\Tempest\ViewForLaravel\TempestView`:
 
 ```php
+use Tempest\ViewForLaravel\TempestView;
+
 final readonly class HomeController
 {
     public function __invoke()
