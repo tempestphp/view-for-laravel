@@ -9,7 +9,7 @@
 <div align="center">
   Bringing <a href="https://tempestphp.com/view">tempest/view</a> to Laravel.
   <br />
-  Read the <a href="https://tempestphp.com/docs">documentation</a> to get started.
+  Read the <a href="https://tempestphp.com/docs/framework/views/">documentation</a> to get started.
 </div>
 
 <br />
