@@ -1,9 +1,9 @@
-# Laravel support for tempest/view
 
 <p align="center">
   <a href="https://tempestphp.com">
     <img src=".github/tempest-logo.svg" width="100" />
   </a>
+    <h1>Laravel support for tempest/view</h1>
 </p>
 
 <div align="center">
