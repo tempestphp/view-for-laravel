@@ -6,14 +6,12 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Tempest\Container\Container;
 use Tempest\View\ViewRenderer;
-use function Tempest\root_path;
 
 class TempestViewProvider extends PackageServiceProvider
 {
     public function register(): self
     {
-        // TODO: change root to Laravel's root
-        $this->app->singleton(Container::class, fn () => TempestKernel::boot(root_path()));
+        $this->app->singleton(Container::class, fn () => TempestKernel::boot(base_path())->container);
         $this->app->singleton(ViewRenderer::class, fn () => $this->app->get(Container::class)->get(ViewRenderer::class));
 
         return parent::register();

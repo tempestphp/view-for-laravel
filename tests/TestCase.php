@@ -2,11 +2,8 @@
 
 namespace Tempest\ViewForLaravel\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Routing\Router;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Tempest\Container\Container;
-use Tempest\Core\Tempest;
 use Tempest\Discovery\DiscoveryLocation;
 use Tempest\ViewForLaravel\TempestKernel;
 use Tempest\ViewForLaravel\TempestViewProvider;
@@ -25,7 +22,7 @@ class TestCase extends Orchestra
                     path: __DIR__,
                 )
             ]
-        ));
+        )->container);
     }
 
     protected function getPackageProviders($app)

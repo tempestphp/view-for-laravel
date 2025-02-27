@@ -5,12 +5,13 @@ namespace Tempest\ViewForLaravel;
 use Tempest\Container\Container;
 use Tempest\Container\GenericContainer;
 use Tempest\Core\Composer;
+use Tempest\Core\Kernel;
 use Tempest\Core\Kernel\LoadConfig;
 use Tempest\Core\Kernel\LoadDiscoveryClasses;
 use Tempest\Core\Kernel\LoadDiscoveryLocations;
 use Tempest\Core\ShellExecutors\GenericShellExecutor;
 
-final class TempestKernel
+final class TempestKernel implements Kernel
 {
     public readonly Container $container;
 
@@ -29,11 +30,13 @@ final class TempestKernel
     public static function boot(
         string $root,
         array $discoveryLocations = [],
+        ?Container $container = null,
     ): self {
         return new self(
             root: $root,
             discoveryLocations: $discoveryLocations,
         )
+            ->registerKernel()
             ->loadComposer()
             ->loadDiscoveryLocations()
             ->loadConfig()
@@ -63,6 +66,13 @@ final class TempestKernel
         return $this;
     }
 
+    public function registerKernel(): self
+    {
+        $this->container->singleton(Kernel::class, $this);
+
+        return $this;
+    }
+
     public function loadDiscoveryLocations(): self
     {
         $this->container->invoke(LoadDiscoveryLocations::class);
@@ -82,5 +92,10 @@ final class TempestKernel
         $this->container->invoke(LoadConfig::class);
 
         return $this;
+    }
+
+    public function shutdown(int|string $status = ''): never
+    {
+        exit($status);
     }
 }
