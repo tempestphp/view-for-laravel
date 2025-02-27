@@ -1,5 +1,21 @@
 # Laravel support for tempest/view
 
+<p align="center">
+  <a href="https://tempestphp.com">
+    <img src=".github/tempest-logo.svg" width="100" />
+  </a>
+</p>
+
+<h1 align="center">Tempest</h1>
+<div align="center">
+  Bringing <a href="https://tempestphp.com/view">tempest/view</a> to Laravel.
+  <br />
+  Read the <a href="https://tempestphp.com/docs">documentation</a> to get started.
+</div>
+
+<br />
+<br />
+
 ## Installation
 
 You can install the package via composer:
@@ -8,62 +24,35 @@ You can install the package via composer:
 composer require tempest/view-for-laravel
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="view-for-laravel-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="view-for-laravel-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="view-for-laravel-views"
-```
-
 ## Usage
 
+From any controller, simply return an instance of `\Tempest\ViewForLaravel\TempestView`:
+
 ```php
-$viewForLaravel = new Tempest\ViewForLaravel();
-echo $viewForLaravel->echoPhrase('Hello, Tempest!');
+final readonly class HomeController
+{
+    public function __invoke()
+    {
+        return new TempestView(__DIR__ . '/Views/home.view.php');
+    }
+}
 ```
 
-## Testing
+```html
+<!-- home.view.php -->
+<x-layout>
+    <h1>Hello Laravel</h1>
+</x-layout>
 
-```bash
-composer test
+<!-- x-layout.view.php -->
+<x-component name="x-layout">
+    <html lang="en">
+    <head>
+        <title>Tempest View</title>
+    </head>
+    <body>
+        <x-slot />
+    </body>
+    </html>
+</x-component>
 ```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
-- [Brent Roose](https://github.com/tempest)
-- [All Contributors](../../contributors)
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

@@ -32,28 +32,24 @@
     },
     "autoload": {
         "psr-4": {
-            "Tempest\\ViewForLaravel\\": "src/",
-            "Tempest\\ViewForLaravel\\Database\\Factories\\": "database/factories/"
+            "Tempest\\ViewForLaravel\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tempest\\ViewForLaravel\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "Tempest\\ViewForLaravel\\Tests\\": "tests/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         }
     },
