@@ -5,7 +5,6 @@ namespace Tempest\ViewForLaravel;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Tempest\Container\Container;
-use Tempest\Core\Tempest;
 use Tempest\View\ViewRenderer;
 use function Tempest\root_path;
 
