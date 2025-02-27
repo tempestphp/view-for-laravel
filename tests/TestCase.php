@@ -1,10 +1,15 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Tempest\ViewForLaravel\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Routing\Router;
 use Orchestra\Testbench\TestCase as Orchestra;
-use VendorName\Skeleton\SkeletonServiceProvider;
+use Tempest\Container\Container;
+use Tempest\Core\Tempest;
+use Tempest\Discovery\DiscoveryLocation;
+use Tempest\ViewForLaravel\TempestKernel;
+use Tempest\ViewForLaravel\TempestViewProvider;
 
 class TestCase extends Orchestra
 {
@@ -12,26 +17,26 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        $this->app->singleton(Container::class, fn () => TempestKernel::boot(
+            root: __DIR__ . '/../',
+            discoveryLocations: [
+                new DiscoveryLocation(
+                    namespace: 'Tempest\ViewForLaravel\Tests',
+                    path: __DIR__,
+                )
+            ]
+        ));
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            SkeletonServiceProvider::class,
+            TempestViewProvider::class,
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    protected function defineRoutes($router)
     {
-        config()->set('database.default', 'testing');
-
-        /*
-         foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/database/migrations') as $migration) {
-            (include $migration->getRealPath())->up();
-         }
-         */
+        $router->get('/', HomeController::class);
     }
 }

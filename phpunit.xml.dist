@@ -16,7 +16,7 @@
     backupStaticProperties="false"
 >
     <testsuites>
-        <testsuite name="VendorName Test Suite">
+        <testsuite name="Tempest Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -28,4 +28,8 @@
             <directory suffix=".php">./src</directory>
         </include>
     </source>
+    <php>
+        <env name="APP_ENV" value="local" />
+        <env name="APP_DEBUG" value="true" />
+    </php>
 </phpunit>
