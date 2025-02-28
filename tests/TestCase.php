@@ -41,6 +41,7 @@ class TestCase extends Orchestra
     protected function defineRoutes($router)
     {
         $router->get('/', HomeController::class);
-        $router->get('/view-from-resource', ViewFromResourceController::class);
+        $router->get('/view-from-resource', [ViewFromResourceController::class, 'viewFromResource']);
+        $router->get('/view-from-resource-without-extension', [ViewFromResourceController::class, 'viewFromResourceWithoutExtension']);
     }
 }

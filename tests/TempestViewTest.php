@@ -19,4 +19,12 @@ class TempestViewTest extends TestCase
             ->assertSee('Hello Resource Laravel')
             ->assertSee('Tempest Resource View');
     }
+
+    public function test_view_without_extension_is_rendered(): void
+    {
+        $this->get('/view-from-resource-without-extension')
+            ->assertOk()
+            ->assertSee('Hello Resource Laravel')
+            ->assertSee('Tempest Resource View');
+    }
 }
