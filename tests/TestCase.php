@@ -3,13 +3,9 @@
 namespace Tempest\ViewForLaravel\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Tempest\Container\Container;
-use Tempest\Core\Kernel;
-use Tempest\Discovery\DiscoveryLocation;
-use Tempest\ViewForLaravel\TempestKernel;
 use Tempest\ViewForLaravel\TempestViewProvider;
-use Tempest\ViewForLaravel\Tests\Controllers\HomeController;
-use Tempest\ViewForLaravel\Tests\Controllers\ViewFromResourceController;
+use Tempest\ViewForLaravel\Tests\Controllers\ViewController;
+use function Tempest\path;
 
 class TestCase extends Orchestra
 {
@@ -17,18 +13,10 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $container = $this->app->get(Container::class);
-
-        /** @var \Tempest\ViewForLaravel\TempestKernel $kernel */
-        $kernel = $container->get(Kernel::class);
-
-        $kernel->discoveryLocations[] = new DiscoveryLocation(
-            namespace: 'Tempest\ViewForLaravel\Tests\Views',
-            path: __DIR__ . '/Views',
-        );
-
-        copy(__DIR__ . '/ResourceViews/resource-home.view.php', resource_path('views/resource-home.view.php'));
-        copy(__DIR__ . '/ResourceViews/x-resource-layout.view.php', resource_path('views/x-resource-layout.view.php'));
+        foreach (glob(__DIR__ . '/Views/*.view.php') as $file) {
+            $basename = path($file)->basename();
+            copy($file, resource_path("views/{$basename}"));
+        }
     }
 
     protected function getPackageProviders($app)
@@ -40,8 +28,8 @@ class TestCase extends Orchestra
 
     protected function defineRoutes($router)
     {
-        $router->get('/', HomeController::class);
-        $router->get('/view-from-resource', [ViewFromResourceController::class, 'viewFromResource']);
-        $router->get('/view-from-resource-without-extension', [ViewFromResourceController::class, 'viewFromResourceWithoutExtension']);
+        $router->get('/view-full-path', [ViewController::class, 'fullPath']);
+        $router->get('/view-without-extension', [ViewController::class, 'withoutExtension']);
+        $router->get('/view-without-path', [ViewController::class, 'withoutPath']);
     }
 }

@@ -28,13 +28,13 @@ composer require tempest/view-for-laravel
 From any controller, simply return an instance of `\Tempest\ViewForLaravel\TempestView`:
 
 ```php
-use Tempest\ViewForLaravel\TempestView;
+use Tempest\ViewForLaravel\GenericTempestView;
 
 final readonly class HomeController
 {
     public function __invoke()
     {
-        return new TempestView(__DIR__ . '/Views/home.view.php');
+        return new GenericTempestView(__DIR__ . '/Views/home.view.php');
     }
 }
 ```

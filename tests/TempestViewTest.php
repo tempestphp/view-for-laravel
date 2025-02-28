@@ -2,29 +2,25 @@
 
 namespace Tempest\ViewForLaravel\Tests;
 
+use Tempest\ViewForLaravel\Tests\Controllers\ViewController;
+
 class TempestViewTest extends TestCase
 {
     public function test_view_is_rendered(): void
     {
-        $this->get('/')
+        $this->get(action([ViewController::class, 'fullPath']))
             ->assertOk()
             ->assertSee('Hello Laravel')
             ->assertSee('Tempest View');
-    }
 
-    public function test_view_from_resource_is_rendered(): void
-    {
-        $this->get('/view-from-resource')
+        $this->get(action([ViewController::class, 'withoutExtension']))
             ->assertOk()
-            ->assertSee('Hello Resource Laravel')
-            ->assertSee('Tempest Resource View');
-    }
+            ->assertSee('Hello Laravel')
+            ->assertSee('Tempest View');
 
-    public function test_view_without_extension_is_rendered(): void
-    {
-        $this->get('/view-from-resource-without-extension')
+        $this->get(action([ViewController::class, 'withoutPath']))
             ->assertOk()
-            ->assertSee('Hello Resource Laravel')
-            ->assertSee('Tempest Resource View');
+            ->assertSee('Hello Laravel')
+            ->assertSee('Tempest View');
     }
 }
