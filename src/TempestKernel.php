@@ -32,13 +32,15 @@ final class TempestKernel implements Kernel
         array $discoveryLocations = [],
         ?Container $container = null,
     ): self {
-        return new self(
+        $kernel = new self(
             root: $root,
             discoveryLocations: $discoveryLocations,
         )
             ->registerKernel()
             ->loadComposer()
-            ->loadDiscoveryLocations()
+            ->loadDiscoveryLocations();
+
+        return $kernel
             ->loadConfig()
             ->loadDiscovery();
     }

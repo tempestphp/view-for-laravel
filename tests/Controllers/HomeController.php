@@ -1,6 +1,6 @@
 <?php
 
-namespace Tempest\ViewForLaravel\Tests;
+namespace Tempest\ViewForLaravel\Tests\Controllers;
 
 use Tempest\ViewForLaravel\TempestView;
 
@@ -8,6 +8,6 @@ final readonly class HomeController
 {
     public function __invoke()
     {
-        return new TempestView(__DIR__ . '/Views/home.view.php');
+        return new TempestView(__DIR__ . '/../Views/home.view.php');
     }
 }
