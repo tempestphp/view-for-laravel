@@ -19,6 +19,12 @@ final class TempestKernel implements Kernel
 
     public array $discoveryClasses = [];
 
+    public string $internalStorage {
+        get {
+            return storage_path('tempest');
+        }
+    }
+
     public function __construct(
         public string $root,
         /** @var \Tempest\Discovery\DiscoveryLocation[] $discoveryLocations */

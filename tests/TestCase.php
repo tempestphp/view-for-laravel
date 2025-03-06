@@ -5,7 +5,7 @@ namespace Tempest\ViewForLaravel\Tests;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Tempest\ViewForLaravel\TempestViewProvider;
 use Tempest\ViewForLaravel\Tests\Controllers\ViewController;
-use function Tempest\path;
+use function Tempest\Support\path;
 
 class TestCase extends Orchestra
 {
@@ -19,14 +19,14 @@ class TestCase extends Orchestra
         }
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             TempestViewProvider::class,
         ];
     }
 
-    protected function defineRoutes($router)
+    protected function defineRoutes($router): void
     {
         $router->get('/view-full-path', [ViewController::class, 'fullPath']);
         $router->get('/view-without-extension', [ViewController::class, 'withoutExtension']);
